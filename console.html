@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consola del Bot</title>
+</head>
+<body>
+  <h2>🖥 Consola del servidor</h2>
+  <pre id="output"></pre>
+  <input type="text" id="cmd" placeholder="Escribe un comando...">
+  <button onclick="sendCommand()">Ejecutar</button>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:3000");
+    const output = document.getElementById("output");
+
+    ws.onmessage = (event) => {
+      output.textContent += event.data + "\n";
+    };
+
+    function sendCommand() {
+      const cmd = document.getElementById("cmd").value;
+      ws.send(cmd);
+      document.getElementById("cmd").value = "";
+    }
+  </script>
+</body>
+                                            </html>
