@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servidor Free</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f5;
+      text-align: center;
+      padding: 50px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #server-box {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌐 Servidor Free</h1>
+  <p>Obtén un servidor de <b>5 GB</b> de disco y <b>500 MB RAM</b> gratis 🚀</p>
+
+  <!-- Registro -->
+  <div class="box" id="register-box">
+    <h2>Registrarse</h2>
+    <input type="email" id="regEmail" placeholder="Correo electrónico" required>
+    <input type="password" id="regPass" placeholder="Contraseña" required>
+    <button onclick="register()">Registrar</button>
+    <p>¿Ya tienes cuenta? <a href="#" onclick="showLogin()">Inicia sesión</a></p>
+  </div>
+
+  <!-- Login -->
+  <div class="box" id="login-box" style="display:none;">
+    <h2>Iniciar sesión</h2>
+    <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
+    <input type="password" id="loginPass" placeholder="Contraseña" required>
+    <button onclick="login()">Entrar</button>
+    <p>¿No tienes cuenta? <a href="#" onclick="showRegister()">Regístrate</a></p>
+  </div>
+
+  <!-- Servidor -->
+  <div class="box" id="server-box">
+    <h2>Bienvenido 🎉</h2>
+    <p>Puedes pedir tu servidor gratis:</p>
+    <button onclick="getServer()">Agregar al carrito</button>
+    <p id="server-msg"></p>
+  </div>
+
+  <script>
+    function showLogin() {
+      document.getElementById('register-box').style.display = 'none';
+      document.getElementById('login-box').style.display = 'block';
+    }
+    function showRegister() {
+      document.getElementById('login-box').style.display = 'none';
+      document.getElementById('register-box').style.display = 'block';
+    }
+
+    function register() {
+      const email = document.getElementById('regEmail').value;
+      const pass = document.getElementById('regPass').value;
+
+      if (email && pass) {
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userPass", pass);
+        alert("✅ Registro exitoso, ahora inicia sesión.");
+        showLogin();
+      } else {
+        alert("❌ Ingresa un correo y contraseña válidos.");
+      }
+    }
+
+    function login() {
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPass').value;
+
+      const savedEmail = localStorage.getItem("userEmail");
+      const savedPass = localStorage.getItem("userPass");
+
+      if (email === savedEmail && pass === savedPass) {
+        document.getElementById('login-box').style.display = 'none';
+        document.getElementById('register-box').style.display = 'none';
+        document.getElementById('server-box').style.display = 'block';
+      } else {
+        alert("❌ Correo o contraseña incorrectos.");
+      }
+    }
+
+    function getServer() {
+      document.getElementById('server-msg').innerHTML = "✅ Tu servidor ha sido agregado al carrito.";
+    }
+  </script>
+
+</body>
+</html>
